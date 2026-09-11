@@ -154,7 +154,7 @@ pip install torch torchvision timm tensorflow scikit-learn scikit-image opencv-p
 ## Run
 
 1. Download the dataset from Kaggle (link above) and place/mount it.
-2. Open `fruit-freshness-and-rotten-for-classification.ipynb` in Jupyter, Kaggle, or Colab.
+2. Open `deep-learning-based-fruit-freshness-assessment-wit.ipynb` in Jupyter, Kaggle, or Colab.
 3. Run cells sequentially, each markdown header marks a self-contained stage (preprocessing → split → model training → Grad-CAM → cross-validation).
 4. Model checkpoints are saved to `checkpoints/` (e.g. `resnet34_best.pth`), and Grad-CAM outputs are written under the evaluation directory defined in that section.
 
