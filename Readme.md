@@ -185,12 +185,6 @@ The results indicate that ResNet34 is a strong candidate for automated fruit-fre
 
 ---
 
-## 🤝 Contributing
-
-Have ideas or improvements? Feel free to fork the repository, apply your changes, and submit a pull request.
-
----
-
 ## 🔐 License
 
 This project is licensed under the [MIT License](./LICENSE).
