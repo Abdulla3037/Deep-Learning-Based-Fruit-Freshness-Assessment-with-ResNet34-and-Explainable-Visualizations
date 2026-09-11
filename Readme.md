@@ -80,7 +80,7 @@ Six architectures are evaluated under a unified training setup:
 
 ---
 
-## 🧠 Methodology Overview
+## 🔬 Methodology Overview
 
 ```
 Raw Images (13,599 RGB, 6 classes)
@@ -133,114 +133,32 @@ Best Model → ResNet34
 
 ---
 
-## ⚙️ Installation
+### Setup
 
-Install the main dependencies with:
+If running on Kaggle, attach the dataset directly — the notebook expects it at:
+
+```
+/kaggle/input/fruits-fresh-and-rotten-for-classification/dataset
+```
+
+To run locally, download the dataset from Kaggle and update the `BASE_DIR` / `DATA_ROOT` path variables at the top of each notebook section accordingly.
+
+---
+
+## ⚙️ Getting Started
+
+### Requirements
 
 ```bash
-pip install numpy pandas pillow opencv-python matplotlib seaborn scikit-learn scikit-image torch torchvision timm psutil joblib
+pip install torch torchvision timm tensorflow scikit-learn scikit-image opencv-python matplotlib seaborn pandas numpy pillow
 ```
 
-For the easiest reproduction, run the notebook in **Kaggle with a GPU runtime**, since the notebook uses Kaggle dataset paths and CUDA-enabled training.
+### Run
 
----
-
-## ▶️ How to Run
-
-### Option 1 — Kaggle
-
-1. Open the notebook in Kaggle.
-2. Add the dataset:
-   `sriramr/fruits-fresh-and-rotten-for-classification`
-3. Enable a GPU runtime.
-4. Run the notebook cells in order.
-
-### Option 2 — Local / Other Notebook Environment
-
-Download the Kaggle dataset and update the dataset paths used in the notebook, for example:
-
-```python
-DATA_ROOT = "/path/to/fruits-fresh-and-rotten-for-classification/dataset"
-```
-
-The notebook currently uses Kaggle-specific paths such as:
-
-```text
-/kaggle/input/fruits-fresh-and-rotten-for-classification/dataset
-/kaggle/working/split_dataset
-```
-
-These should be changed when running outside Kaggle.
-
----
-
-## 📁 Suggested Repository Structure
-
-```text
-fruit-freshness-and-rotten-for-classification/
-│
-├── README.md
-├── fruit-freshness-and-rotten-for-classification.ipynb
-│
-├── results/
-│   ├── confusion_matrix/
-│   ├── gradcam/
-│   ├── learning_curves/
-│   ├── roc_curves/
-│   └── pr_curves/
-│
-└── models/
-    └── resnet34_best.pth
-```
-
-> The original Kaggle dataset should generally **not be committed to GitHub**. Keep the dataset external and link to the original Kaggle source instead.
-
----
-
-## 📈 Key Findings
-
-- **ResNet34** performed best among the six evaluated architectures.
-- The proposed model achieved **99.93% test accuracy**.
-- 5-fold cross-validation produced a mean accuracy of **99.61%**.
-- The model achieved a Cohen's kappa of **0.9991**.
-- Grad-CAM showed that predictions were based on meaningful freshness-related image regions.
-- The evaluation also considers computational efficiency through inference time, GPU memory usage, RAM consumption, and training time.
-- The results indicate that ResNet34 is a strong candidate for automated fruit-freshness assessment.
-
----
-
-## ⚠️ Limitations
-
-The dataset covers only three fruit types:
-
-- Apples
-- Bananas
-- Oranges
-
-Therefore, the results may not directly generalize to every fruit or to real-world conditions such as:
-
-- Different lighting environments
-- Occlusion
-- Background clutter
-- Camera variations
-- Different stages of decay
-- Additional fruit varieties
-- Real-time market or warehouse conditions
-
-The accompanying paper recommends expanding the dataset and evaluating the system under more diverse real-world conditions.
-
----
-
-## 🚀 Future Work
-
-Potential extensions include:
-
-- Expanding the dataset to additional fruit categories.
-- Collecting images under varied environmental and lighting conditions.
-- Testing the system on real-world market or warehouse images.
-- Building a real-time fruit freshness detection application.
-- Deploying the trained model in automated sorting or quality-control systems.
-- Developing a user-friendly software interface for practical use.
+1. Download the dataset from Kaggle (link above) and place/mount it as described in [Dataset](#-dataset).
+2. Open `fruit-freshness-and-rotten-for-classification.ipynb` in Jupyter, Kaggle, or Colab.
+3. Run cells sequentially — each markdown header marks a self-contained stage (preprocessing → split → model training → Grad-CAM → cross-validation).
+4. Model checkpoints are saved to `checkpoints/` (e.g. `resnet34_best.pth`), and Grad-CAM outputs are written under the evaluation directory defined in that section.
 
 ---
 
