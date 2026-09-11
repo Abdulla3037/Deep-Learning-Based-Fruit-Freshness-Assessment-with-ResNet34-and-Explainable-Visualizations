@@ -1,4 +1,4 @@
-# 🍎 Deep Learning-Based Fruit Freshness Assessment with ResNet34 and Explainable Visualizations
+# 🍎 Deep Learning Based Fruit Freshness Assessment with ResNet34 and Explainable Visualizations
 
 An end-to-end deep learning pipeline that classifies fruit images (apples, bananas, oranges) as fresh or rotten using transfer learning, with a full evaluation suite (cross-validation, learning curves, Cohen's Kappa) and Grad-CAM explainability to visualize what the model is "looking at" when it makes a prediction.
 
