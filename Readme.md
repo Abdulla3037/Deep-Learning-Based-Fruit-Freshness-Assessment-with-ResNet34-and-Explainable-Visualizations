@@ -18,17 +18,6 @@ The main objectives of this project are to:
 
 ---
 
-## 🏆 Highlights
-
-- **6-class classification**: Fresh/Rotten × {Apples, Bananas, Oranges}
-- **6 architectures benchmarked**: ResNet34, MobileViT-S, LeViT-128S, DeiT-Tiny (Patch16-224), EfficientNet-B0, TinyViT-5M-224
-- **Best model — ResNet34**: **99.93% test accuracy**, Cohen's Kappa **0.9991**, AUC **1.0000**
-- **5-fold cross-validation** mean accuracy of **99.61%**, confirming generalization
-- **Grad-CAM** visualizations confirming the model attends to freshness-relevant regions (texture, color, decay)
-- Rigorous preprocessing pipeline: Resize → CLAHE contrast enhancement → Non-Local Means denoising → normalization, validated quantitatively with **PSNR** and **SSIM**
-
----
-
 ## 🗂️ Dataset
 
 The project uses the following Kaggle dataset:
