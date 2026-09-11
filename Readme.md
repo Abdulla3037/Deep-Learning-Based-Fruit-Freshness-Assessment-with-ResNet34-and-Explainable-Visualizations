@@ -181,6 +181,6 @@ The results indicate that ResNet34 is a strong candidate for automated fruit-fre
 ## 📚 Research Paper
 
 **Deep Learning-Based Fruit Freshness Assessment with ResNet34 and Explainable Visualizations**  
-[Read the full paper on IEEE Xplore →](https://ieeexplore.ieee.org/document/11502516)
+[Read the full paper on IEEE Xplore](https://ieeexplore.ieee.org/document/11502516)
 
 ---
