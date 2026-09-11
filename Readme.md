@@ -80,182 +80,105 @@ Six architectures are evaluated under a unified training setup:
 
 ---
 
-## 🔬 Methodology
+# 🍎 Deep Learning-Based Fruit Freshness Assessment with ResNet34 and Explainable Visualizations
 
-### 1. Image Preparation
+An end-to-end deep learning pipeline that classifies fruit images (apples, bananas, oranges) as **fresh** or **rotten** using transfer learning, with a full evaluation suite (cross-validation, learning curves, Cohen's Kappa) and **Grad-CAM** explainability to visualize what the model is "looking at" when it makes a prediction.
 
-Images are standardized to **224 × 224** pixels.
-
-The project also includes preprocessing analysis using:
-
-- Image resizing
-- CLAHE-based contrast enhancement
-- Non-Local Means denoising analysis
-- Pixel normalization
-- PSNR evaluation
-- SSIM evaluation
-
-The notebook quantitatively compares image quality before and after preprocessing.
-
-### 2. Stratified Dataset Splitting
-
-The complete dataset is reorganized into:
-
-```text
-Train       → 80%
-Validation  → 10%
-Test        → 10%
-```
-
-A fixed random seed of **42** is used for reproducibility.
-
-### 3. Data Augmentation
-
-For model training, the ResNet34 pipeline includes:
-
-- Resize to 224 × 224
-- Random resized crop
-- Random rotation
-- Random horizontal flip
-- Color jitter
-- Tensor conversion
-- ImageNet normalization
-
-Validation and test images use deterministic resizing/cropping followed by ImageNet normalization.
-
-### 4. Model Training
-
-The main training configuration is:
-
-| Setting | Value |
-|---|---|
-| Input Size | 224 × 224 |
-| Batch Size | 32 |
-| Maximum Epochs | 40 |
-| Optimizer | AdamW |
-| Learning Rate | `3 × 10⁻⁴` |
-| Weight Decay | `1 × 10⁻⁴` |
-| Loss | Cross-Entropy |
-| Dropout | 0.5 |
-| Early Stopping Patience | 3 |
-| Random Seed | 42 |
-| Data Loader Workers | 4 |
-
-The experiments were performed with GPU acceleration.
+> 📄 Companion research paper: *"Deep Learning-Based Fruit Freshness Assessment with ResNet34 and Explainable Visualizations"* — Tabassum Talukder, Md. Abdulla Hasan, Md. Ehsanul Haque (Dept. of CSE / MPS, East West University, Dhaka, Bangladesh). Published in IEEE Xplore: [ieeexplore.ieee.org/document/11502516](https://ieeexplore.ieee.org/document/11502516). See [`CRC.pdf`](./CRC.pdf) for the camera-ready write-up.
 
 ---
 
-## 📊 ResNet34 Results
+## 🏆 Highlights
 
-### Test Set
-
-ResNet34 achieved:
-
-- **Accuracy:** 99.93%
-- **Precision:** 99.91%
-- **Recall:** 99.92%
-- **F1-score:** 99.91%
-- **ROC-AUC:** 1.0000
-- **Cohen's Kappa:** 0.9991
-- **95% Accuracy CI:** [0.9978, 1.0000]
-- **Inference time:** approximately 2.71 ms/image in the notebook evaluation
-
-The test confusion matrix shows only a single misclassification: one **rotten orange** was classified as a **fresh orange**.
+- **6-class classification**: Fresh/Rotten × {Apples, Bananas, Oranges}
+- **6 architectures benchmarked**: ResNet34, MobileViT-S, LeViT-128S, DeiT-Tiny (Patch16-224), EfficientNet-B0, TinyViT-5M-224
+- **Best model — ResNet34**: **99.93% test accuracy**, Cohen's Kappa **0.9991**, AUC **1.0000**
+- **5-fold cross-validation** mean accuracy of **99.61%**, confirming generalization
+- **Grad-CAM** visualizations confirming the model attends to freshness-relevant regions (texture, color, decay)
+- Rigorous preprocessing pipeline: resize → CLAHE contrast enhancement → Non-Local Means denoising → normalization, validated quantitatively with **PSNR** and **SSIM**
 
 ---
 
-## 🔁 5-Fold Cross-Validation
+## 📊 Results at a Glance
 
-The selected ResNet34 model was additionally evaluated using 5-fold stratified cross-validation.
+### Model Comparison (Test Set)
+
+| Model                  | Accuracy | Precision | Recall | F1-Score | AUC    |
+|-------------------------|:--------:|:---------:|:------:|:--------:|:------:|
+| **ResNet34 (proposed)** | **0.9993** | **0.9991** | **0.9992** | **0.9991** | **1.0000** |
+| MobileViT-S             | 0.9978   | 0.9977    | 0.9975 | 0.9976   | 0.9998 |
+| EfficientNet-B0         | 0.9949   | 0.9940    | 0.9938 | 0.9939   | 0.9998 |
+| TinyViT-5M-224          | 0.9941   | 0.9940    | 0.9945 | 0.9942   | 0.9999 |
+| DeiT-Tiny (Patch16-224) | 0.9897   | 0.9884    | 0.9897 | 0.9889   | 0.9981 |
+| LeViT-128S              | 0.9816   | 0.9828    | 0.9804 | 0.9814   | 0.9992 |
+
+### Cohen's Kappa & Confidence Intervals
+
+| Model                  | Kappa  | 95% CI              |
+|-------------------------|:------:|:--------------------:|
+| ResNet34                | 0.9991 | [0.9978, 1.0000]     |
+| MobileViT-S              | 0.9973 | [0.9953, 1.0000]     |
+| EfficientNet-B0          | 0.9938 | [0.9910, 0.9987]     |
+| TinyViT-5M-224           | 0.9929 | [0.9901, 0.9982]     |
+| DeiT-Tiny (Patch16-224)  | 0.9876 | [0.9843, 0.9951]     |
+| LeViT-128S               | 0.9778 | [0.9745, 0.9888]     |
+
+### 5-Fold Cross-Validation (ResNet34)
 
 | Fold | Accuracy |
-|---|---:|
-| Fold 1 | 99.04% |
-| Fold 2 | 99.96% |
-| Fold 3 | 99.15% |
-| Fold 4 | 99.96% |
-| Fold 5 | 99.93% |
-| **Mean** | **99.61%** |
-| **Std. Dev.** | **0.42%** |
+|------|:--------:|
+| 1    | 0.9904   |
+| 2    | 0.9996   |
+| 3    | 0.9915   |
+| 4    | 0.9996   |
+| 5    | 0.9993   |
+| **Mean** | **0.9961** |
 
-The consistently high scores across folds indicate strong stability and generalization across different data partitions.
+### Efficiency Comparison
 
----
+| Model            | Inference (ms) | Training (s) | GPU (GB) | RAM (GB) |
+|-------------------|:---------------:|:------------:|:--------:|:--------:|
+| **ResNet34**      | 5.45            | 391.20       | 1.56     | 2.56     |
+| DeiT-Tiny         | 10.48           | 307.92       | 0.72     | 2.71     |
+| LeViT-128S        | 11.34            | 370.84       | 0.68     | 3.36     |
+| TinyViT-5M-224    | 12.00           | 1007.02      | 3.26     | 3.45     |
+| EfficientNet-B0   | 36.84           | 277.37       | 3.07     | 3.42     |
+| MobileViT-S       | 172.15          | 481.22       | 2.97     | 3.07     |
 
-## 🔍 Explainable AI with Grad-CAM
-
-To make the ResNet34 predictions more interpretable, the project uses **Grad-CAM (Gradient-weighted Class Activation Mapping)**.
-
-Grad-CAM heatmaps highlight image regions that contribute most strongly to the model's predictions. In the accompanying analysis, the model focuses on meaningful visual characteristics such as:
-
-- Fruit texture
-- Color changes
-- Visible decay
-- Rotten regions
-- Other freshness-related visual patterns
-
-This provides a visual explanation of *where* the model is looking when making a freshness prediction.
+ResNet34 offers the best trade-off between accuracy, stability, and inference speed, making it the recommended model for real-world deployment.
 
 ---
 
-## 🖼️ Image Quality Evaluation
+## 🧠 Methodology Overview
 
-The notebook evaluates preprocessing with two widely used image-quality metrics:
-
-- **PSNR — Peak Signal-to-Noise Ratio**
-- **SSIM — Structural Similarity Index**
-
-The paper reports improvements after preprocessing, including higher PSNR and SSIM values for the evaluated fruit classes.
-
-| Class | PSNR Before | PSNR After | SSIM Before | SSIM After |
-|---|---:|---:|---:|---:|
-| Fresh Apples | 20.94 | 26.11 | 0.3153 | 0.7184 |
-| Fresh Bananas | 21.58 | 27.09 | 0.3257 | 0.8479 |
-| Fresh Oranges | 21.59 | 30.08 | 0.2104 | 0.9168 |
-| Rotten Apples | 21.55 | 24.16 | 0.3051 | 0.6025 |
-| Rotten Bananas | 22.42 | 24.54 | 0.2853 | 0.6734 |
-| Rotten Oranges | 21.03 | 27.20 | 0.2720 | 0.6861 |
-
----
-
-## 📓 Notebook
-
-The main notebook is:
-
-```text
-fruit-freshness-and-rotten-for-classification.ipynb
 ```
-
-The notebook is organized into the following major stages:
-
-```text
-Dataset Preparation
-        ↓
-Class Distribution Analysis
-        ↓
-Preprocessing Visualization
-        ↓
-PSNR / SSIM Evaluation
-        ↓
-Stratified 80/10/10 Split
-        ↓
-ResNet34 Training
-        ↓
-Grad-CAM Visualization
-        ↓
-MobileViT-S Training
-        ↓
-LeViT-128S Training
-        ↓
-DeiT-Tiny Training
-        ↓
-EfficientNet-B0 Training
-        ↓
-TinyViT-5M Training
-        ↓
-5-Fold Cross-Validation
+Raw Images (13,599 RGB, 6 classes)
+        │
+        ▼
+Preprocessing
+  ├─ Resize → 224×224
+  ├─ CLAHE contrast enhancement
+  ├─ Non-Local Means denoising
+  └─ Normalization [0, 1]
+        │
+        ▼
+Stratified Split (80% train / 10% val / 10% test)
+        │
+        ▼
+Train 6 Architectures
+  ResNet34 · MobileViT-S · LeViT-128S · DeiT-Tiny · EfficientNet-B0 · TinyViT-5M
+        │
+        ▼
+Evaluation (all 6 models)
+  Accuracy · Precision · Recall · F1 · Cohen's Kappa · AUC
+        │
+        ▼
+Best Model → ResNet34
+        │
+        ├─► Explainability: Grad-CAM heatmaps on final convolutional layer
+        │
+        └─► 5-Fold Cross-Validation (ResNet34 only)
 ```
-
 ---
 
 ## 🛠️ Technologies Used
