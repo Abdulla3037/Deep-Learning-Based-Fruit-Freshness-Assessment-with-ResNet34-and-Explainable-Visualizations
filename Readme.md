@@ -1,29 +1,6 @@
-# 🍎 Fruit Freshness Classification using Deep Learning
+# 🍎 Deep Learning-Based Fruit Freshness Assessment with ResNet34 and Explainable Visualizations
 
-A deep learning project for **automatic fruit freshness classification** using the Kaggle *Fruits Fresh and Rotten for Classification* dataset.
-
-The project compares six transfer-learning / modern deep-learning architectures and identifies **ResNet34** as the best-performing model. It also includes image preprocessing analysis, PSNR/SSIM-based image-quality evaluation, stratified dataset splitting, detailed model evaluation, 5-fold cross-validation, and **Grad-CAM** visualizations for model interpretability.
-
-> **Best model:** ResNet34  
-> **Test Accuracy:** **99.93%**  
-> **5-Fold Cross-Validation Accuracy:** **99.61% ± 0.42%**
-
----
-
-## 📌 Project Overview
-
-Manual fruit-quality inspection can be time-consuming, subjective, and inconsistent. This project investigates an automated computer-vision approach for classifying fruit freshness from RGB images.
-
-The system classifies images into six categories:
-
-- Fresh Apples
-- Fresh Bananas
-- Fresh Oranges
-- Rotten Apples
-- Rotten Bananas
-- Rotten Oranges
-
-The accompanying research paper describes the methodology and experimental findings in detail, while the provided Jupyter Notebook contains the implementation and experiments.
+An end-to-end deep learning pipeline that classifies fruit images (apples, bananas, oranges) as fresh or rotten using transfer learning, with a full evaluation suite (cross-validation, learning curves, Cohen's Kappa) and Grad-CAM explainability to visualize what the model is "looking at" when it makes a prediction.
 
 ---
 
@@ -38,6 +15,17 @@ The main objectives of this project are to:
 5. Measure classification performance using accuracy, precision, recall, F1-score, AUC, Cohen's kappa, confidence intervals, and inference time.
 6. Improve model transparency using **Grad-CAM**.
 7. Validate the best-performing model using **5-fold cross-validation**.
+
+---
+
+## 🏆 Highlights
+
+- **6-class classification**: Fresh/Rotten × {Apples, Bananas, Oranges}
+- **6 architectures benchmarked**: ResNet34, MobileViT-S, LeViT-128S, DeiT-Tiny (Patch16-224), EfficientNet-B0, TinyViT-5M-224
+- **Best model — ResNet34**: **99.93% test accuracy**, Cohen's Kappa **0.9991**, AUC **1.0000**
+- **5-fold cross-validation** mean accuracy of **99.61%**, confirming generalization
+- **Grad-CAM** visualizations confirming the model attends to freshness-relevant regions (texture, color, decay)
+- Rigorous preprocessing pipeline: Resize → CLAHE contrast enhancement → Non-Local Means denoising → normalization, validated quantitatively with **PSNR** and **SSIM**
 
 ---
 
