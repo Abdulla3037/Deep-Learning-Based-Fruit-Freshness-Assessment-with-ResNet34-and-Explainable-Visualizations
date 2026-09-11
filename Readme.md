@@ -133,73 +133,54 @@ Best Model → ResNet34
 
 ---
 
-### Setup
+## ⚙️ Setup
 
-If running on Kaggle, attach the dataset directly — the notebook expects it at:
+If running on Kaggle, attach the dataset directly the notebook expects it at:
 
 ```
-/kaggle/input/fruits-fresh-and-rotten-for-classification/dataset
+/kaggle/input/fruits-fresh-and-rotten-for-classification/dataset](https://www.kaggle.com/datasets/sriramr/fruits-fresh-and-rotten-for-classification
 ```
 
 To run locally, download the dataset from Kaggle and update the `BASE_DIR` / `DATA_ROOT` path variables at the top of each notebook section accordingly.
 
 ---
 
-## ⚙️ Getting Started
-
-### Requirements
+## Requirements
 
 ```bash
 pip install torch torchvision timm tensorflow scikit-learn scikit-image opencv-python matplotlib seaborn pandas numpy pillow
 ```
 
-### Run
+## Run
 
-1. Download the dataset from Kaggle (link above) and place/mount it as described in [Dataset](#-dataset).
+1. Download the dataset from Kaggle (link above) and place/mount it.
 2. Open `fruit-freshness-and-rotten-for-classification.ipynb` in Jupyter, Kaggle, or Colab.
-3. Run cells sequentially — each markdown header marks a self-contained stage (preprocessing → split → model training → Grad-CAM → cross-validation).
+3. Run cells sequentially, each markdown header marks a self-contained stage (preprocessing → split → model training → Grad-CAM → cross-validation).
 4. Model checkpoints are saved to `checkpoints/` (e.g. `resnet34_best.pth`), and Grad-CAM outputs are written under the evaluation directory defined in that section.
+
+---
+
+## 📈 Key Findings
+
+1. ResNet34 performed best among the six evaluated architectures.
+
+2. It achieved 99.93% test accuracy.
+
+3. 5-fold cross-validation produced a mean accuracy of 99.61%.
+
+4. The model achieved a Cohen's kappa of 0.9991.
+
+5. Grad-CAM showed that predictions were based on meaningful freshness-related image regions.
+
+6. The evaluation also considers computational efficiency through inference time, GPU memory usage, RAM consumption, and training time.
+
+The results indicate that ResNet34 is a strong candidate for automated fruit-freshness assessment.
 
 ---
 
 ## 📚 Research Paper
 
-**Deep Learning-Based Fruit Freshness Assessment with ResNet34 and Explainable Visualizations**
-
-**Authors:**
-- Tabassum Talukder
-- Md. Abdulla Hasan
-- Md. Ehsanul Haque
-
-The paper presents the motivation, methodology, model comparison, preprocessing evaluation, cross-validation results, Grad-CAM analysis, and conclusions associated with this project.
+**Deep Learning-Based Fruit Freshness Assessment with ResNet34 and Explainable Visualizations**  
+[Read the full paper on IEEE Xplore →](https://ieeexplore.ieee.org/document/11502516)
 
 ---
-
-## 📖 References
-
-### Dataset
-
-S. R. Kalluri, *Fruits Fresh and Rotten for Classification*, Kaggle, 2018.  
-https://www.kaggle.com/datasets/sriramr/fruits-fresh-and-rotten-for-classification
-
-### Related Work
-
-- Y. Yuan et al., *An innovative approach to detecting the freshness of fruits and vegetables through the integration of convolutional neural networks and bidirectional long short-term memory network*, 2024.
-- J. F. Martínez Pazos et al., *Freshnets: Highly accurate and efficient food freshness assessment based on deep convolutional neural networks*, 2024.
-- Y. Shu et al., *Fruit freshness classification and detection based on the ResNet-101 network and non-local attention mechanism*, 2025.
-- Y. Gulzar, *Fruit image classification model based on MobileNetV2 with deep transfer learning technique*, 2023.
-- M. S. Morshed et al., *Fruit quality assessment with densely connected convolutional neural network*, 2022.
-
----
-
-## 📄 Citation
-
-If you use this project, dataset, or methodology in academic work, please cite the accompanying research paper and the original Kaggle dataset.
-
----
-
-## 👨‍💻 Project
-
-**Fruit Freshness Classification using Deep Learning, Transfer Learning, and Explainable AI**
-
-Built with **PyTorch + TIMM + Scikit-learn + OpenCV** and evaluated using **ResNet34, MobileViT-S, LeViT-128S, DeiT-Tiny, EfficientNet-B0, and TinyViT-5M-224**.
